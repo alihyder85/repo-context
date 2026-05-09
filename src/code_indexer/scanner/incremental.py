@@ -2,6 +2,7 @@
 
 import hashlib
 from pathlib import Path
+from typing import Optional
 
 from loguru import logger
 
@@ -128,22 +129,35 @@ class ChangeDetector:
 
 
 class IncrementalScanner:
-    """Scanner that tracks incremental changes."""
+    """Scanner that tracks incremental changes.
+
+    Dependencies are injected to keep this class composable and testable.
+    Pass a custom ``change_detector`` or ``initial_index`` to override the
+    defaults — for example, to resume from a previously persisted index or
+    to swap in a test double.
+    """
 
     def __init__(
         self,
         repo_root: Path,
         use_hash: bool = False,
+        change_detector: Optional[ChangeDetector] = None,
+        initial_index: Optional[RepositoryIndex] = None,
     ) -> None:
         """Initialize incremental scanner.
 
         Args:
             repo_root: Repository root path
-            use_hash: Whether to use hashes for validation
+            use_hash: Whether to use hashes for change validation.
+                Ignored when ``change_detector`` is provided explicitly.
+            change_detector: Optional pre-configured ChangeDetector to use.
+                Defaults to ``ChangeDetector(use_hash=use_hash)``.
+            initial_index: Optional pre-populated RepositoryIndex to resume
+                from. Defaults to an empty index.
         """
         self.repo_root = repo_root
-        self.change_detector = ChangeDetector(use_hash=use_hash)
-        self.index = RepositoryIndex(repo_root=repo_root, files={})
+        self.change_detector = change_detector or ChangeDetector(use_hash=use_hash)
+        self.index = initial_index or RepositoryIndex(repo_root=repo_root, files={})
 
     def update_index(self, scan_result: ScanResult) -> ChangedFiles:
         """Update index with new scan and detect changes.

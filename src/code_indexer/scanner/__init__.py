@@ -1,5 +1,6 @@
 """Repository scanning and metadata collection."""
 
+from code_indexer.scanner.protocols import ScannerProtocol
 from code_indexer.scanner.filters import (
     CompositeFilter,
     FileFilter,
@@ -19,6 +20,7 @@ from code_indexer.scanner.models import (
 from code_indexer.scanner.scanner import RepositoryScanner
 
 __all__ = [
+    "ScannerProtocol",
     "RepositoryScanner",
     "FileMetadata",
     "ScanResult",

@@ -38,6 +38,25 @@ class FileMetadata:
             return NotImplemented
         return self.absolute_path == other.absolute_path
 
+    def to_dict(self) -> dict:
+        """Serialize to a plain dictionary for SQLite storage.
+
+        Returns a flat dict with JSON-safe types so the indexer layer
+        can persist this metadata without importing the model class.
+
+        Returns:
+            Dictionary representation of this file's metadata
+        """
+        return {
+            "absolute_path": str(self.absolute_path),
+            "relative_path": str(self.relative_path),
+            "extension": self.extension,
+            "size": self.size,
+            "mtime": self.mtime.isoformat(),
+            "language": self.language,
+            "hash": self.hash,
+        }
+
     @classmethod
     def from_path(
         cls,

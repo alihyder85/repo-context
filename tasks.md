@@ -2,23 +2,23 @@
 
 # Current Milestones
 
-## Phase 1 — Foundation
+## Phase 1 — Foundation ✅
 
-- [ ] Create project structure
-- [ ] Setup Python environment
-- [ ] Configure linting and formatting
-- [ ] Add logging
-- [ ] Add Docker setup
+- [x] Create project structure
+- [x] Setup Python environment
+- [x] Configure linting and formatting
+- [x] Add logging
+- [x] Add Docker setup
 
 ---
 
-## Phase 2 — Repository Scanner
+## Phase 2 — Repository Scanner ✅
 
-- [ ] Recursive repository scanning
-- [ ] Ignore pattern support
-- [ ] File metadata collection
-- [ ] Incremental file detection
-- [ ] Scanner tests
+- [x] Recursive repository scanning
+- [x] Ignore pattern support
+- [x] File metadata collection
+- [x] Incremental file detection
+- [x] Scanner tests
 
 ---
 
