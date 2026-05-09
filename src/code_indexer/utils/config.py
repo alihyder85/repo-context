@@ -5,16 +5,6 @@ from pathlib import Path
 from typing import List, Optional
 
 from pydantic import Field
-from pydantic_settings import BaseSettings
-
-
-"""Configuration management for the code indexer."""
-
-import os
-from pathlib import Path
-from typing import List, Optional
-
-from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 

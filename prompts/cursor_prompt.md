@@ -29,7 +29,7 @@ For each file collect:
 - extension
 - file size
 - modified timestamp (mtime)
-- optional SHA256 hash
+- optional SHA256 hash (computed on-demand by ChangeDetector, not at scan time — field is None until explicitly requested)
 - detected language
 
 Incremental Detection:

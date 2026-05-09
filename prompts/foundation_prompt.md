@@ -39,3 +39,8 @@ Generate:
 - dependency setup
 - setup instructions
 - development workflow
+
+Constraints:
+- Each generated file must have exactly one module docstring at the top — no duplicate import blocks
+- Use pydantic-settings SettingsConfigDict (not the old class-based Config inner class)
+- All typing imports must use the single canonical import block per file
