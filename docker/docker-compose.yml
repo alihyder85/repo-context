@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  code-indexer:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../data:/app/data
+      - ../logs:/app/logs
+    environment:
+      - DATABASE_URL=sqlite:///app/data/code_indexer.db
+      - LOG_LEVEL=INFO
+    restart: unless-stopped
