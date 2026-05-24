@@ -4,6 +4,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from code_indexer.api.routes import health
+from code_indexer.api.routes import symbols as symbols_router
+from code_indexer.api.routes import files as files_router
 from code_indexer.utils.config import settings
 
 
@@ -20,21 +22,21 @@ def create_app() -> FastAPI:
         debug=settings.debug,
     )
 
-    # Add CORS middleware
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],  # TODO: Configure properly for production
+        allow_origins=["*"],
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
     )
 
-    # Include routers
-    app.include_router(health.router, prefix="/api/v1", tags=["health"])
+    prefix = "/api/v1"
+    app.include_router(health.router, prefix=prefix, tags=["health"])
+    app.include_router(symbols_router.router, prefix=prefix, tags=["symbols"])
+    app.include_router(files_router.router, prefix=prefix, tags=["files"])
 
     @app.get("/")
     async def root() -> dict[str, str]:
-        """Root endpoint."""
         return {"message": "Code Indexer API", "version": "0.1.0"}
 
     return app
